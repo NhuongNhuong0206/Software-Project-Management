@@ -9,6 +9,7 @@ router = DefaultRouter()
 router.register('Box', views.BoxViewSet)
 router.register('Bill', views.BillViewSet)
 router.register('User', views.ResidentLoginViewset)
+router.register('CarCard', views.CarCardViewset)
 
 
 urlpatterns = [

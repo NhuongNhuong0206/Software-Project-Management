@@ -195,6 +195,15 @@ class SurveyResponseAdmin(admin.ModelAdmin):
     list_filter = ('completed', 'timestamp')
     inlines = [AnswerInline]
 
+class CarCardSet(admin.ModelAdmin):
+    list_display = ['id', 'area', 'status_card', 'vehicle_type', 'user', 'edit', ]
+    search_fields = ['id', 'area']
+
+    def edit(self, obj):
+        edit_url = reverse('admin:%s_%s_change' % (obj._meta.app_label, obj._meta.model_name), args=[obj.pk])
+        return format_html(
+            '<a href="{}" style="background-color: #4CAF50; border: none; color: white; padding: 8px 14px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; border-radius: 4px; cursor: pointer;">Edit</a>',
+            edit_url)
 
 admin.site.register(User, UserResidentSet)
 admin.site.register(People, PeopleSet)

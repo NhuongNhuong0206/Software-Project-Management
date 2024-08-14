@@ -155,3 +155,9 @@ class AnswerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Answer
 
+class CarCardSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = CarCard
+        # filter chỉ định các trường serialize ra pare thành json để gửi ra bên ngoài để client gọi API
+        fields = '__all__'
+

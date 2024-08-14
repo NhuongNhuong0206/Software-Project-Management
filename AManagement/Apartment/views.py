@@ -268,3 +268,56 @@ class InfoPeopleViewSet(viewsets.ViewSet, generics.ListAPIView):
         serialized_data = self.serializer_class(people_data).data
         return Response(serialized_data, status=status.HTTP_200_OK)
 
+class CarCardViewset(viewsets.ViewSet, generics.ListAPIView):
+    queryset = CarCard.objects.filter(is_active=True)
+    serializer_class = CarCardSerializers
+
+    def get_permissions(self):
+        if self.action in ['create_carcard', 'delete_card']:
+            return [permissions.IsAuthenticated()]
+
+        return [permissions.AllowAny()]
+
+    @action(methods=['get'], url_path='get_card', detail=True)  # Người dùng xem thông tin thẻ xe của mình
+    def get_carcard(self, request, pk):
+        # Lấy người dùng đang đăng nhập từ request
+        current_user = request.user
+        # Lấy thông tin các thẻ xe mà người dùng đã đăng ký
+        carcard_user = CarCard.objects.filter(user=current_user)
+        serialized_data = self.serializer_class(carcard_user, many=True).data
+        return Response(serialized_data, status=status.HTTP_200_OK)
+
+    @action(methods=['post'], url_path='update_card', detail=False)
+    def create_carcard(self, request):
+        current_user = request.user
+
+        # Kiểm tra số lượng thẻ xe của người dùng
+        num_carcards = CarCard.objects.filter(user=current_user).count()
+        if num_carcards >= 3:
+            return Response({"error": "Bạn đã đạt tối đa số lượng thẻ xe."},
+                            status=status.HTTP_403_FORBIDDEN)  # từ chối
+
+        serializer = self.serializer_class(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save(user=current_user,
+                            status_card=CarCard.EnumStatusCard.CONFIRMER, is_active=True)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    # API Xóa thẻ xe
+
+    @action(methods=['delete'], url_path='delete_card', detail=False)
+    def delete(self, request):
+        current_user = request.user
+        carcard_data = request.data
+        carcard_id = carcard_data.get('id')
+        try:
+            carcard = CarCard.objects.get(user=current_user, id=carcard_id)
+        except CarCard.DoesNotExist:
+            return Response({"error": "Không tìm thấy thẻ xe hoặc thẻ xe không thuộc về người dùng hiện tại!"},
+                            status=status.HTTP_404_NOT_FOUND)
+
+        carcard.delete()
+        return Response({"message": "Thẻ xe đã được xóa thành công."}, status=status.HTTP_200_OK)
+
