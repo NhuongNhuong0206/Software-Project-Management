@@ -327,6 +327,7 @@ class CarCardViewset(viewsets.ViewSet, generics.ListAPIView):
         return Response({"message": "Thẻ xe đã được xóa thành công."}, status=status.HTTP_200_OK)
 
 
+# Api đơn hàng trong tủ đồ
 class GoodsViewSet(viewsets.ViewSet, generics.ListAPIView):
     queryset = Goods.objects.filter(is_active=True)
     serializer_class = GoodsSerializers
