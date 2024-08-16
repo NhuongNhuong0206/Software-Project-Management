@@ -333,7 +333,8 @@ class LettersViewSet(viewsets.ViewSet):
 
     def get_permissions(self):
         if self.action in ['create_letters', ' get_letters']:
-
+            return [permissions.IsAuthenticated()]
+        return [permissions.AllowAny()]
 
 class GoodsViewSet(viewsets.ViewSet, generics.ListAPIView):
     queryset = Goods.objects.filter(is_active=True)
