@@ -161,3 +161,30 @@ class CarCardSerializers(serializers.ModelSerializer):
         # filter chỉ định các trường serialize ra pare thành json để gửi ra bên ngoài để client gọi API
         fields = '__all__'
 
+class LettersSerializers(serializers.ModelSerializer):
+    user_admin = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=False, many=True)
+
+    class Meta:
+        model = Letters
+        fields = ['title_letter', 'content', 'img_letter', 'user_admin', 'people', 'created_date']
+
+class SurveySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Survey
+        fields = '__all__'
+
+class QuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Question
+        fields = '__all__'
+
+class SurveyResponseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SurveyResponse
+        fields = '__all__'
+
+class AnswerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Answer
+        fields = '__all__'
+

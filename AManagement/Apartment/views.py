@@ -327,7 +327,9 @@ class CarCardViewset(viewsets.ViewSet, generics.ListAPIView):
         return Response({"message": "Thẻ xe đã được xóa thành công."}, status=status.HTTP_200_OK)
 
 
+
 # Api đơn hàng trong tủ đồ
+
 class GoodsViewSet(viewsets.ViewSet, generics.ListAPIView):
     queryset = Goods.objects.filter(is_active=True)
     serializer_class = GoodsSerializers
@@ -337,7 +339,7 @@ class GoodsViewSet(viewsets.ViewSet, generics.ListAPIView):
             return [permissions.IsAuthenticated()]
 
         return [permissions.AllowAny()]
-
+     
     @action(methods=['get'], url_path='get_goods', detail=False)
     def get_goods(self, request):
         try:
@@ -391,3 +393,139 @@ class GoodsViewSet(viewsets.ViewSet, generics.ListAPIView):
         except:
             return Response({"message": "Không thể cập nhật trạng thái hàng hóa"},
                             status=status.HTTP_400_BAD_REQUEST)
+
+          
+class LettersViewSet(viewsets.ViewSet):
+    queryset = Letters.objects.filter(is_active=True)
+    serializer_class = LettersSerializers
+
+    def get_permissions(self):
+        if self.action in ['create_letters', ' get_letters']:
+            return [permissions.IsAuthenticated()]
+        return [permissions.AllowAny()]
+      
+    @action(detail=False, methods=['get'], url_path='get_letters', url_name='get_letters')
+    def get_letters(self, request):
+        user = self.request.user
+        letters = Letters.objects.filter(people=user.people)
+        serializer = LettersSerializers(letters, many=True)
+        return Response(serializer.data)
+
+    @action(detail=False, methods=['post'], url_path='create_letters', url_name='create_letters')
+    def create_letters(self, request, *args, **kwargs):
+        # Lấy thông tin từ request data
+        title_letter = request.data.get('title_letter')
+        content = request.data.get('content')
+        img_letter = request.data.get('img_letter')
+        user_admin_ids = request.data.get('user_admin', [])
+
+        # Xác thực người dùng và lấy thông tin People
+        if request.user.is_authenticated:
+            try:
+                people = request.user.people  # Lấy thông tin People của user đăng nhập
+            except People.DoesNotExist:
+                return Response({"error": "People profile does not exist for this user."},
+                                status=status.HTTP_404_NOT_FOUND)
+        else:
+            return Response({"error": "Authentication credentials were not provided."},
+                            status=status.HTTP_401_UNAUTHORIZED)
+
+        # Tạo một đối tượng Letters để lưu vào cơ sở dữ liệu
+        letters_data = {
+            'title_letter': title_letter,
+            'content': content,
+            'img_letter': img_letter,
+            'people': people.id  # Gán people_id vào đối tượng Letters
+        }
+
+        # Tạo và lưu đối tượng Letters
+        serializer = LettersSerializers(data=letters_data)
+        if serializer.is_valid():
+            letters = serializer.save()
+
+            # Thêm các admin được chọn vào danh sách user_admin của Letters
+            if user_admin_ids:
+                letters.user_admin.add(*user_admin_ids)
+
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+      
+class SurveyViewSet(viewsets.ViewSet):
+    queryset = Survey.objects.all()
+    serializer_class = SurveySerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    @action(detail=True, methods=['get'])
+    def questions(self, request, pk=None):
+        try:
+            survey = self.queryset.get(pk=pk)
+            questions = survey.questions.all()
+            serializer = QuestionSerializer(questions, many=True)
+            return Response(serializer.data)
+        except Survey.DoesNotExist:
+            return Response({'error': 'Survey not found'}, status=status.HTTP_404_NOT_FOUND)
+
+
+class QuestionViewSet(viewsets.ViewSet, generics.ListAPIView):
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
+
+
+from django.db.models import Case, When, BooleanField, F, Value
+
+
+class SurveyResponseViewSet(viewsets.ModelViewSet):
+    queryset = SurveyResponse.objects.all()
+    serializer_class = SurveyResponseSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def create(self, request, *args, **kwargs):
+        data = request.data
+        print(data)
+        try:
+            survey = Survey.objects.get(id=data['survey'])
+            respondent = request.user
+            response = SurveyResponse.objects.create(survey=survey, respondent=respondent, completed=True)
+            print(response)
+            answers = data.get('answers', [])
+            for answer in answers:
+                question = Question.objects.get(id=answer['question'])
+                Answer.objects.create(response=response, question=question, score=answer['score'])
+            serializer = SurveyResponseSerializer(response)  # Sử dụng serializer trực tiếp
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        except Survey.DoesNotExist:
+            return Response({'error': 'Survey does not exist'}, status=status.HTTP_404_NOT_FOUND)
+        except Question.DoesNotExist:
+            return Response({'error': 'Question does not exist'}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class AnswerViewSet(viewsets.ViewSet):
+    queryset = Answer.objects.all()
+    serializer_class = AnswerSerializer
+
+    def create(self, request, *args, **kwargs):
+        data = request.data
+        try:
+            response = SurveyResponse.objects.create(
+                survey_id=data['survey'],
+                respondent_id=data['respondent'],
+                timestamp=data['timestamp']
+            )
+            for answer_data in data['answers']:
+                Answer.objects.create(
+                    response=response,
+                    question_id=answer_data['question'],
+                    score=answer_data['score']
+                )
+            return Response({'status': 'Response and answers created successfully'}, status=status.HTTP_201_CREATED)
+        except SurveyResponse.DoesNotExist:
+            return Response({'error': 'SurveyResponse does not exist'}, status=status.HTTP_404_NOT_FOUND)
+        except Question.DoesNotExist:
+            return Response({'error': 'Question does not exist'}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    
