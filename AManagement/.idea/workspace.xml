@@ -8,6 +8,9 @@
       <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Apartment/migrations/0001_initial.py" beforeDir="false" />
+
+      <change beforePath="$PROJECT_DIR$/Apartment/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/Apartment/serializers.py" afterDir="false" />
+
       <change beforePath="$PROJECT_DIR$/Apartment/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Apartment/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Apartment/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Apartment/views.py" afterDir="false" />
     </list>
