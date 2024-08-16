@@ -327,14 +327,8 @@ class CarCardViewset(viewsets.ViewSet, generics.ListAPIView):
         return Response({"message": "Thẻ xe đã được xóa thành công."}, status=status.HTTP_200_OK)
 
 
-class LettersViewSet(viewsets.ViewSet):
-    queryset = Letters.objects.filter(is_active=True)
-    serializer_class = LettersSerializers
 
-    def get_permissions(self):
-        if self.action in ['create_letters', ' get_letters']:
-            return [permissions.IsAuthenticated()]
-        return [permissions.AllowAny()]
+# Api đơn hàng trong tủ đồ
 
 class GoodsViewSet(viewsets.ViewSet, generics.ListAPIView):
     queryset = Goods.objects.filter(is_active=True)
@@ -345,8 +339,71 @@ class GoodsViewSet(viewsets.ViewSet, generics.ListAPIView):
             return [permissions.IsAuthenticated()]
 
         return [permissions.AllowAny()]
+     
+    @action(methods=['get'], url_path='get_goods', detail=False)
+    def get_goods(self, request):
+        try:
+            user = request.user  # Người dùng hiện tại đăng nhập
+            boxes = Box.objects.filter(user_admin=user)  # Lấy Tất cả các box mà người dùng là admin
+            print("ádad")
+            goods = Goods.objects.filter(box__in=boxes).order_by(
+                '-created_date')  # lọc các đối tượng mà trường đó có giá trị trong một danh sách đã cho
+            print("vvvv")
+            # Lưu ý: Sử dụng .url để truy cập đường dẫn đầy đủ của hình ảnh từ Cloudinary
+            serialized_data = self.serializer_class(goods, many=True, context={'request': request}).data
+            return Response(serialized_data, status=status.HTTP_200_OK)
+        except:
+            return Response({"message": "Không thể lấy thông tin hàng hóa"}, status=status.HTTP_400_BAD_REQUEST)
 
+    @action(methods=['post'], url_path='create_goods', detail=False)
+    def create_goods(self, request):
+        serializer_data = request.data.copy()  # Tạo một bản sao của dữ liệu request để thêm trường box
+        user = request.user  # Người dùng hiện tại đăng nhập
+        boxes = Box.objects.filter(user_admin=user)  # Tất cả các box của người dùng
+        if boxes.exists():  # Kiểm tra xem người dùng có box nào không
+            serializer_data['box'] = boxes.first().id  # Lưu id của box đầu tiên vào trường box
+            serializer_data['is_active'] = True
+        else:
+            return Response({"message": "Người dùng không có box"}, status=status.HTTP_400_BAD_REQUEST)
 
+        serializer = GoodsSerializers(data=serializer_data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(methods=['patch'], url_path='Update_items_tatus', detail=True)
+    def Update_items_tatus(self, request, pk):
+        try:
+            user = request.user
+            print(user)
+            id_good = request.data.get('id')  # Lấy ID hàng hóa
+            print(id_good)
+            boxes = Box.objects.filter(user_admin=user)
+
+            # Tìm hàng hóa trong các hộp của user có ID là id_good
+            goods = Goods.objects.filter(box__in=boxes, received_Goods=Goods.EnumStatusGood.RECEIVED, id=pk)
+
+            if goods.exists():
+                goods.update(received_Goods=Goods.EnumStatusGood.URG)
+                return Response({"message": "Cập nhật trạng thái thành công"}, status=status.HTTP_200_OK)
+            else:
+                return Response({"message": "Không tìm thấy hàng hóa để cập nhật"},
+                                status=status.HTTP_404_NOT_FOUND)
+        except:
+            return Response({"message": "Không thể cập nhật trạng thái hàng hóa"},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+          
+class LettersViewSet(viewsets.ViewSet):
+    queryset = Letters.objects.filter(is_active=True)
+    serializer_class = LettersSerializers
+
+    def get_permissions(self):
+        if self.action in ['create_letters', ' get_letters']:
+            return [permissions.IsAuthenticated()]
+        return [permissions.AllowAny()]
+      
     @action(detail=False, methods=['get'], url_path='get_letters', url_name='get_letters')
     def get_letters(self, request):
         user = self.request.user
@@ -393,6 +450,7 @@ class GoodsViewSet(viewsets.ViewSet, generics.ListAPIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+      
 class SurveyViewSet(viewsets.ViewSet):
     queryset = Survey.objects.all()
     serializer_class = SurveySerializer
@@ -470,57 +528,4 @@ class AnswerViewSet(viewsets.ViewSet):
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    @action(methods=['get'], url_path='get_goods', detail=False)
-    def get_goods(self, request):
-        try:
-            user = request.user  # Người dùng hiện tại đăng nhập
-            boxes = Box.objects.filter(user_admin=user)  # Lấy Tất cả các box mà người dùng là admin
-            print("ádad")
-            goods = Goods.objects.filter(box__in=boxes).order_by(
-                '-created_date')  # lọc các đối tượng mà trường đó có giá trị trong một danh sách đã cho
-            print("vvvv")
-            # Lưu ý: Sử dụng .url để truy cập đường dẫn đầy đủ của hình ảnh từ Cloudinary
-            serialized_data = self.serializer_class(goods, many=True, context={'request': request}).data
-            return Response(serialized_data, status=status.HTTP_200_OK)
-        except:
-            return Response({"message": "Không thể lấy thông tin hàng hóa"}, status=status.HTTP_400_BAD_REQUEST)
-
-    @action(methods=['post'], url_path='create_goods', detail=False)
-    def create_goods(self, request):
-        serializer_data = request.data.copy()  # Tạo một bản sao của dữ liệu request để thêm trường box
-        user = request.user  # Người dùng hiện tại đăng nhập
-        boxes = Box.objects.filter(user_admin=user)  # Tất cả các box của người dùng
-        if boxes.exists():  # Kiểm tra xem người dùng có box nào không
-            serializer_data['box'] = boxes.first().id  # Lưu id của box đầu tiên vào trường box
-            serializer_data['is_active'] = True
-        else:
-            return Response({"message": "Người dùng không có box"}, status=status.HTTP_400_BAD_REQUEST)
-
-        serializer = GoodsSerializers(data=serializer_data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    @action(methods=['patch'], url_path='Update_items_tatus', detail=True)
-    def Update_items_tatus(self, request, pk):
-        try:
-            user = request.user
-            print(user)
-            id_good = request.data.get('id')  # Lấy ID hàng hóa
-            print(id_good)
-            boxes = Box.objects.filter(user_admin=user)
-
-            # Tìm hàng hóa trong các hộp của user có ID là id_good
-            goods = Goods.objects.filter(box__in=boxes, received_Goods=Goods.EnumStatusGood.RECEIVED, id=pk)
-
-            if goods.exists():
-                goods.update(received_Goods=Goods.EnumStatusGood.URG)
-                return Response({"message": "Cập nhật trạng thái thành công"}, status=status.HTTP_200_OK)
-            else:
-                return Response({"message": "Không tìm thấy hàng hóa để cập nhật"},
-                                status=status.HTTP_404_NOT_FOUND)
-        except:
-            return Response({"message": "Không thể cập nhật trạng thái hàng hóa"},
-                            status=status.HTTP_400_BAD_REQUEST)
-
+    
