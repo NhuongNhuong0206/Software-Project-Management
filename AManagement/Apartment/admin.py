@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 from django.utils.html import mark_safe
 from django.contrib import admin
@@ -224,3 +225,8 @@ admin_site.register(RefreshToken)
 
 # Register your models here
 
+=======
+from django.contrib import admin
+
+# Register your models here.
+>>>>>>> parent of 6edc1d39 (Lập trình API đăng ký tủ đồ điện tử, cấp tủ đồ điện tử)
