@@ -1,4 +1,3 @@
-
 from django.utils.html import mark_safe
 from django.contrib import admin
 from .models import *
@@ -12,7 +11,6 @@ from django.forms import Textarea
 from django.shortcuts import get_object_or_404, redirect
 
 from oauth2_provider.models import Application, AccessToken, Grant, IDToken, RefreshToken
-
 
 
 class UserResidentSet(admin.ModelAdmin):
@@ -44,7 +42,6 @@ class UserResidentSet(admin.ModelAdmin):
             '<a href="{}" style="background-color: #4CAF50; border: none; color: white; padding: 8px 14px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; border-radius: 4px; cursor: pointer;">Edit</a>',
             edit_url)
 
-
     def save_model(self, request, obj, form, change):
         # Kiểm tra xem có phải là tạo mới đối tượng không
         if not change:
@@ -65,8 +62,9 @@ class CarCardSet(admin.ModelAdmin):
             '<a href="{}" style="background-color: #4CAF50; border: none; color: white; padding: 8px 14px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; border-radius: 4px; cursor: pointer;">Edit</a>',
             edit_url)
 
+
 class PeopleSet(admin.ModelAdmin):
-    list_display = ['id', 'name_people', 'sex', 'phone', 'birthday', 'ApartNum','user', 'edit']
+    list_display = ['id', 'name_people', 'sex', 'phone', 'birthday', 'ApartNum', 'user', 'edit']
     search_fields = ['id', 'name_people']
 
     def edit(self, obj):
@@ -74,6 +72,7 @@ class PeopleSet(admin.ModelAdmin):
         return format_html(
             '<a href="{}" style="background-color: #4CAF50; border: none; color: white; padding: 8px 14px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; border-radius: 4px; cursor: pointer;">Edit</a>',
             edit_url)
+
 
 class GoodsInlineAdmin(admin.StackedInline):
     model = Goods
@@ -115,12 +114,13 @@ class GoodSet(admin.ModelAdmin):
         return format_html(
             '<a href="{}" style="background-color: #4CAF50; border: none; color: white; padding: 8px 14px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; border-radius: 4px; cursor: pointer;">Edit</a>',
             edit_url)
+
+
 class ApartmentManagementAdmin(admin.AdminSite):
     site_header = "HỆ THỐNG QUẢN LÝ CHUNG CƯ"
 
 
 admin_site = ApartmentManagementAdmin('myapartment')
-
 
 
 class BillSet(admin.ModelAdmin):
@@ -165,12 +165,12 @@ class LettersSet(admin.ModelAdmin):
         pass
 
 
-
 class LongTextFieldInline(admin.TabularInline):
     model = Question
     extra = 1
     formfield_overrides = {
-        models.CharField: {'widget': Textarea(attrs={'rows': 3, 'cols': 150})}, # Điều chỉnh số dòng và cột cho ô nhập liệu
+        models.CharField: {'widget': Textarea(attrs={'rows': 3, 'cols': 150})},
+        # Điều chỉnh số dòng và cột cho ô nhập liệu
     }
 
 
@@ -179,10 +179,10 @@ class SurveyResponseInline(admin.TabularInline):
     extra = 0
     readonly_fields = ('respondent', 'completed', 'timestamp')
 
+
 class SurveyAdmin(admin.ModelAdmin):
     list_display = ('title', 'user_surveyor', 'note', 'start_date', 'end_date',)
     inlines = [LongTextFieldInline, SurveyResponseInline]
-
 
 
 class AnswerInline(admin.TabularInline):
@@ -190,10 +190,12 @@ class AnswerInline(admin.TabularInline):
     extra = 0
     readonly_fields = ('question', 'score')
 
+
 class SurveyResponseAdmin(admin.ModelAdmin):
     list_display = ('survey', 'respondent', 'completed', 'timestamp')
     list_filter = ('completed', 'timestamp')
     inlines = [AnswerInline]
+
 
 class CarCardSet(admin.ModelAdmin):
     list_display = ['id', 'area', 'status_card', 'vehicle_type', 'user', 'edit', ]
@@ -204,6 +206,7 @@ class CarCardSet(admin.ModelAdmin):
         return format_html(
             '<a href="{}" style="background-color: #4CAF50; border: none; color: white; padding: 8px 14px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; border-radius: 4px; cursor: pointer;">Edit</a>',
             edit_url)
+
 
 admin.site.register(User, UserResidentSet)
 admin.site.register(People, PeopleSet)
@@ -223,4 +226,3 @@ admin_site.register(IDToken)
 admin_site.register(RefreshToken)
 
 # Register your models here
-

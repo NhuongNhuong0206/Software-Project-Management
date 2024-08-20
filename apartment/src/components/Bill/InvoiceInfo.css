@@ -1,0 +1,99 @@
+.invoice-page {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #1e3c72, #2a5298);
+    min-height: 85vh;
+    padding: 20px;
+    color: white;
+}
+
+.invoice-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 75vh;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    color: #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.invoice-card {
+    margin-bottom: 30px;
+    margin-right: 40px;
+    margin-left: 30px;
+    width: 400px;
+}
+
+.invoice-card h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.invoice-field {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    height: 30px;
+}
+
+.invoice-field label {
+    font-size: 14px;
+    font-weight: bold;
+    /* margin-right: 5px; */
+}
+
+.invoice-field input {
+    width: 250px;;
+    /* margin-right: 5px; */
+}
+
+.invoice-field span {
+    font-size: 14px;
+}
+
+.upload-button {
+    background-color: #cccccc;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.complete-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.payment-note {
+    color: red;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.payment-note p {
+    margin: 5px 0;
+}
+
+.payment-note strong {
+    font-weight: bold;
+    font-size: 16px;
+}
