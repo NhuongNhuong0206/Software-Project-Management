@@ -5,7 +5,7 @@ const Login = () => {
     return (
         <div className="login-container">
             <h1>Đăng nhập</h1>
-            <p>Chào mừng bạn đến với chung cư TNVV</p>
+            <p>Chào mừng bạn đến với Chung Cư TNVV</p>
             <form className="login-form">
                 <div className="input-group">
                     <input type="text" placeholder="Tên đăng nhập" />
