@@ -5,9 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f7c8371a-c991-4e11-ae27-cdb750959e57" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Apartment/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/Apartment/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Apartment/migrations/0001_initial.py" beforeDir="false" />
+
       <change beforePath="$PROJECT_DIR$/Apartment/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/Apartment/serializers.py" afterDir="false" />
+
+      <change beforePath="$PROJECT_DIR$/Apartment/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Apartment/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Apartment/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Apartment/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -18,12 +22,28 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="HTML File" />
         <option value="Python Script" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;TranDangMyTien&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/TranDangMyTien/Software-Project-Management&quot;,
+    &quot;accountId&quot;: &quot;62d568f7-502f-4f7a-bfb8-0966126bab3d&quot;
+  }
+}</component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
@@ -35,11 +55,12 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "E:/Quản lý chung cư/Software-Project-Management/AManagement",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+    "last_opened_file_path": "D:/Software-Project-Management/AManagement",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
   <component name="SharedIndexes">
@@ -59,5 +80,16 @@
       <updated>1721222730594</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
