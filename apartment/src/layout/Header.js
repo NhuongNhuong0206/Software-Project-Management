@@ -11,12 +11,9 @@ const Header = () => {
             </div>
             <nav className="header__nav">
                 <ul>
-                    <li><Link>Trang Chủ</Link></li>
-                    <li><Link>Cư Dân</Link></li>
-                    <li><Link>Dịch Vụ</Link></li>
-                    <li><Link to='/bill'>Thanh Toán</Link></li>
-                    <li><Link>Hồ Sơ</Link></li>
-                    <li><Link>Đăng Xuất</Link></li>
+                    <li><Link to='/'>Trang Chủ</Link></li>
+                    <li><Link to='/profile'> Hồ Sơ</Link></li>
+                    <li><Link to='/login'>Đăng Nhập</Link></li>
                 </ul>
             </nav>
         </header>
