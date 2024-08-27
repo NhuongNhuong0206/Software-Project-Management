@@ -7,7 +7,6 @@ import smtplib
 from email.mime.text import MIMEText
 
 
-
 class CarCardSerializers(serializers.ModelSerializer):
     class Meta:
         model = CarCard
@@ -20,7 +19,6 @@ class UserSerializers(serializers.ModelSerializer):
     def to_representation(self, instance):
         rep = super().to_representation(instance)
         rep['avatar_acount'] = instance.avatar_acount.url
-
 
 
 class BillSerializers(serializers.ModelSerializer):
@@ -86,12 +84,11 @@ class UpdateResidentSerializer(serializers.ModelSerializer):
         }
 
 
-
 class BoxSerializers(serializers.ModelSerializer):
     class Meta:
         model = Box
         # filter chỉ định các trường serialize ra pare thành json để gửi ra bên ngoài để client gọi API
-        fields = ['id', 'stand', 'describe', 'box_status',]
+        fields = ['id', 'stand', 'describe', 'box_status', ]
 
 
 class GoodsSerializers(serializers.ModelSerializer):
@@ -104,7 +101,7 @@ class GoodsSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = Goods
-        fields = ['id', 'name_goods', 'received_Goods', 'note', 'box', 'size', 'img_goods','created_date']
+        fields = ['id', 'name_goods', 'received_Goods', 'note', 'box', 'size', 'img_goods', 'created_date']
 
 
 class LettersSerializers(serializers.ModelSerializer):
@@ -122,38 +119,44 @@ class BillSerializers(serializers.ModelSerializer):
         fields = ['id', 'name_bill', 'money', 'decription', 'type_bill', 'status_bill', 'user_resident', 'created_date',
                   'updated_date', ]
 
+
 class ForgotPasswordSerializers(serializers.ModelSerializer):
     email = serializers.EmailField(source='user.email', read_only=True)
 
     class Meta:
         model = People
-        fields = ['name_people', 'email','identification_card']
+        fields = ['name_people', 'email', 'identification_card']
 
 
 class PeopleSerializers(serializers.ModelSerializer):
     class Meta:
         model = People
         # filter chỉ định các trường serialize ra pare thành json để gửi ra bên ngoài để client gọi API
-        fields = ['name_people', 'birthday', 'sex', 'phone', 'expiry', 'expiry', 'ApartNum', 'identification_card',]
+        fields = ['name_people', 'birthday', 'sex', 'phone', 'expiry', 'expiry', 'ApartNum', 'identification_card', ]
+
 
 class SurveySerializer(serializers.ModelSerializer):
     class Meta:
         model = Survey
         fields = '__all__'
 
+
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
         fields = '__all__'
+
 
 class SurveyResponseSerializer(serializers.ModelSerializer):
     class Meta:
         model = SurveyResponse
         fields = '__all__'
 
+
 class AnswerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Answer
+
 
 class CarCardSerializers(serializers.ModelSerializer):
     class Meta:
@@ -161,3 +164,34 @@ class CarCardSerializers(serializers.ModelSerializer):
         # filter chỉ định các trường serialize ra pare thành json để gửi ra bên ngoài để client gọi API
         fields = '__all__'
 
+
+class LettersSerializers(serializers.ModelSerializer):
+    user_admin = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=False, many=True)
+
+    class Meta:
+        model = Letters
+        fields = ['title_letter', 'content', 'img_letter', 'user_admin', 'people', 'created_date']
+
+
+class SurveySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Survey
+        fields = '__all__'
+
+
+class QuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Question
+        fields = '__all__'
+
+
+class SurveyResponseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SurveyResponse
+        fields = '__all__'
+
+
+class AnswerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Answer
+        fields = '__all__'
