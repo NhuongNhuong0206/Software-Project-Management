@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f7c8371a-c991-4e11-ae27-cdb750959e57" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/AManagement.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/AManagement.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AManagement/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/AManagement/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Apartment/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/Apartment/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Apartment/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/Apartment/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Apartment/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Apartment/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,8 +53,8 @@
     "DefaultHtmlFileTemplate": "HTML File",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/MajorProject/ClinicManagement/clinicmanagement",
+    "git-widget-placeholder": "NguyenThiMyVan",
+    "last_opened_file_path": "D:/HKIII Nam 3/QLDAPM/Software-Project-Management/AManagement",
     "settings.editor.selected.configurable": "configurable.group.appearance"
   }
 }]]></component>

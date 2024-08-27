@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-sv2rg0ii4+n$qudt34c5#womke%ol6ubltaaccky9q)um9c)az
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.1.9']
 
 AUTH_USER_MODEL = 'Apartment.User'
 
@@ -166,7 +166,3 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-CLIENT_ID = 'LWntCvujErO8Cx6SiDBZa9lED2QjSj0KRV7flBsv'
-CLIENT_SECRET = 'fv8ESpuMec5E4PXCWkXb18XQCUXP3a99C85v42KRXb0BS6jzB8VkuYFm8RrOw8geaxXXliQCG4tKEEPSzSESLAlyUntIgHxs8cD5aT86wfDrU3PokcmoSk6nEfh8NBLo'
-

@@ -169,14 +169,3 @@ class Answer(models.Model):
     def __str__(self):
         return f"Answer to {self.question} in {self.response}" # Trả lời cho {câu hỏi} tại {Kết quả khảo sát}
 
-class CarCard(BaseModel):
-    class EnumStatusCard(models.TextChoices):
-        UN = 'Unconfimred'
-        WAIT = 'Wait_for_confirmation'
-        CONFIRMER = 'Confirmed'
-
-    area = models.CharField(max_length=255)
-    status_card = models.CharField(max_length=50, choices=EnumStatusCard.choices,
-                                   default=EnumStatusCard.WAIT)  # Trạng thái thẻ xe
-    vehicle_type = models.CharField(max_length=255, default='motorbike')
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
