@@ -16,9 +16,21 @@ class CarCardSerializers(serializers.ModelSerializer):
 
 class UserSerializers(serializers.ModelSerializer):
 
+    def create(self, validated_data):
+        data = validated_data.copy()
+        u = User(**data)
+        u.set_password(u.password)  # Băm mật khẩu trước khi lưu
+        u.save()
+        return u
+
     def to_representation(self, instance):
         rep = super().to_representation(instance)
-        rep['avatar_acount'] = instance.avatar_acount.url
+        rep['avatar_acount'] = instance.avatar_acount.url if instance.avatar_acount else None
+        return rep
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'password', 'avatar_acount', 'change_password_required', 'email']
 
 
 class BillSerializers(serializers.ModelSerializer):
@@ -28,15 +40,6 @@ class BillSerializers(serializers.ModelSerializer):
         fields = ['id', 'name_bill', 'money', 'decription', 'type_bill', 'status_bill', 'user_resident', 'created_date',
                   'updated_date', ]
 
-
-class UserSerializers(serializers.ModelSerializer):
-    def create(self, validated_data):
-        data = validated_data.copy()
-        u = User(**data)
-        u.set_password(u.password)
-        u.save()
-
-        return u
 
     def to_representation(self, instance):
         rep = super().to_representation(instance)

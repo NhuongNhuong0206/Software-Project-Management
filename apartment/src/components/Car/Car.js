@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Car.css';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
+import Header from '../../layout/Header';
 
 function VehicleInfo() {
     const navigate = useNavigate();
@@ -26,15 +27,30 @@ function VehicleInfo() {
 }
 const Card = () => {
     return (
-    <div style={cardStyle}>
-        <div style={iconStyle}>icon</div>
-        <div style={infoStyle}>
-        <p><strong>Cư dân:</strong> <span style={infoSpanStyle}>[Thông tin cư dân]</span></p>
-        <p><strong>Khu vực giữ xe:</strong> <span style={infoSpanStyle}>[Thông tin khu vực]</span></p>
-        <p><strong>Loại xe:</strong> <span style={infoSpanStyle}>[Thông tin loại xe]</span></p>
-        <p><strong>Ngày tạo:</strong> <span style={infoSpanStyle}>[Thông tin ngày tạo]</span></p>
-        </div>
-    </div>
+        <>
+            <Header/>
+            <div style={cardStyle}>
+                <div style={iconStyle}>icon</div>
+                <div style={infoStyle}>
+                    <p>
+                        <strong>Cư dân:</strong>{" "}
+                        <span style={infoSpanStyle}>[Thông tin cư dân]</span>
+                    </p>
+                    <p>
+                        <strong>Khu vực giữ xe:</strong>{" "}
+                        <span style={infoSpanStyle}>[Thông tin khu vực]</span>
+                    </p>
+                    <p>
+                        <strong>Loại xe:</strong>{" "}
+                        <span style={infoSpanStyle}>[Thông tin loại xe]</span>
+                    </p>
+                    <p>
+                        <strong>Ngày tạo:</strong>{" "}
+                        <span style={infoSpanStyle}>[Thông tin ngày tạo]</span>
+                    </p>
+                </div>
+            </div>
+        </>
     );
 };
 const cardStyle = {

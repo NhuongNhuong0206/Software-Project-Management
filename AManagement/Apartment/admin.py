@@ -53,6 +53,9 @@ class UserResidentSet(admin.ModelAdmin):
             # Nếu là tạo mới, đặt is_staff và is_superuser thành False
             obj.is_staff = False
             obj.is_superuser = False
+        # Kiểm tra nếu mật khẩu đã thay đổi, thì thực hiện băm mật khẩu
+        if 'password' in form.changed_data:
+            obj.set_password(obj.password)
         # Lưu đối tượng
         obj.save()
 

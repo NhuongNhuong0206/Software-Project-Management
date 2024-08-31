@@ -55,7 +55,7 @@ CKEDITOR_UPLOAD_PATH = "ckeditors/images/"
 
 
 OAUTH2_PROVIDER = {
-    'OAUTH2_BACKEND_CLASS': 'oauth2_provider.oauth2_backends.JSONOAuthLibCore'
+    # 'OAUTH2_BACKEND_CLASS': 'oauth2_provider.oauth2_backends.JSONOAuthLibCore'
 }
 
 =======
@@ -68,6 +68,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'AManagement.urls'
@@ -77,7 +79,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = (
-    'http://localhost:3000',  # Địa chỉ IP hoặc tên miền của ứng dụng React Native
+    'http://localhost:8000',  # Địa chỉ IP hoặc tên miền của ứng dụng React Native
     'http://192.168.1.222:8081:delete',
     'exp://192.168.1.222:8081:delete'# Ví dụ: địa chỉ IP của Metro bundler
     # Thêm các địa chỉ IP hoặc tên miền khác nếu cần
