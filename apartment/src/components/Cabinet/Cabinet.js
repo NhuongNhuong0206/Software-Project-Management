@@ -40,14 +40,6 @@ const Cabinet = () => {
     const handleGood = () => {
         navigate("/good");
     };
-    console.log("Data: ", DataListBox[1]);
-    // const orders = DataListBox.map((item) => ({
-    //     name: item.name_goods,
-    //     size: item.size,
-    //     receivedDate: item.created_date.split("T")[0], // Chuyển đổi ngày để chỉ lấy phần ngày
-    //     status: item.received_Goods,
-    //     imageUrl: item.img_goods,
-    // }));
     const orders =
         DataListBox && Object.keys(DataListBox).length > 0
             ? Object.values(DataListBox).map((item) => ({
@@ -58,24 +50,6 @@ const Cabinet = () => {
                   imageUrl: item.img_goods,
               }))
             : [];
-    // const orders = [
-    //     {
-    //         name: "Order 1",
-    //         size: "Medium",
-    //         receivedDate: "2024-08-01",
-    //         status: "Pending",
-    //         imageUrl: "image1.jpg",
-    //     },
-    //     {
-    //         name: "Order 2",
-    //         size: "Large",
-    //         receivedDate: "2024-08-05",
-    //         status: "Ready for Pickup",
-    //         imageUrl: "image2.jpg",
-    //     },
-    //     // Add more orders if necessary
-    // ];
-
     const handlePrevious = () => {
         if (currentOrderIndex > 0) {
             setCurrentOrderIndex(currentOrderIndex - 1);
