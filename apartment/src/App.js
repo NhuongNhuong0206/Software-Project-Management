@@ -54,7 +54,7 @@ function App() {
 
     return (
         <BrowserRouter>
-            <MyUserContext.Provider value={user}>
+            <MyUserContext.Provider value={userToken}>
                 <MyDispatcherContext.Provider value={dispatcher}>
                     <Container>
                         <Routes>

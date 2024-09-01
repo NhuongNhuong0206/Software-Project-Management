@@ -21,8 +21,9 @@ const Goods = () => {
     const [SizeGoodss, setSizeGoodss] = useState("");
     const nav = useNavigate();
     const user = useContext(MyUserContext);
-    console.log("user: ",user);
+
     const send = async () => {
+        console.log("user: ", user);
         if (NameGoodss && NoteGoodss && SizeGoodss) {
             setLoading(true);
 
@@ -31,23 +32,23 @@ const Goods = () => {
                 note: NoteGoodss,
                 size: SizeGoodss,
             };
-            console.log("Dữ liệu đăng kí nhận hàng (payload): ", payload);
             let esc = encodeURIComponent;
             let query = Object.keys(payload)
                 .map((k) => esc(k) + "=" + esc(payload[k]))
                 .join("&");
 
             try {
-                let res = await axios.post(
-                    `http://127.0.0.1:8000/goods/create_goods/`,
-                    query,
-                    {
-                        Authorization: `Bearer ${user.token}`,
-                        withCredentials: true,
-                        crossdomain: true,
-                        "Content-Type": "application/x-www-form-urlencoded",
-                    }
-                );
+                console.log("Trước res", payload);
+                let res = await APIs({
+                    method: "post",
+                    url: endpoints.createGoodss,
+                    withCredentials: true,
+                    crossdomain: true,
+                    data: payload,
+                    headers: {
+                        Authorization: `Bearer ${user}`,
+                    },
+                });
                 console.log("Tới đây");
 
                 if (res.status === 201) {
@@ -56,27 +57,29 @@ const Goods = () => {
                         "Gửi xét duyệt thành công",
                         "success"
                     ).then(() => {
-                        nav("/home"); // Sử dụng nav('/') để điều hướng đúng
+                        nav("/home");
                     });
                 }
             } catch (ex) {
-                console.error(ex);
-                Swal.fire("Lỗi", "Có lỗi xảy ra khi gửi yêu cầu", "error").then(
-                    () => {
-                        nav("/home"); // Điều hướng về trang chính sau khi thông báo lỗi
-                    }
-                );
+                console.log("eeeee: ", ex.response.status);
+                if (ex.response.status === 400) {
+                    Swal.fire(
+                        "Lỗi",
+                        "Người này không có tủ đồ điện tử",
+                        "error"
+                    ).then((result) => {
+                        if (result.isConfirmed) {
+                            nav("/home");
+                        }
+                    });
+                }
             } finally {
                 setLoading(false);
             }
         } else {
             Swal.fire("Thông báo", "Bạn chưa nhập đủ thông tin", "warning");
+            console.log("Lỗi");
         }
-
-        // } else {
-        //     alert("Lỗi");
-        //     nav.navigate(Home);
-        // }
     };
     return (
         <>
@@ -128,9 +131,15 @@ const Goods = () => {
                                     icon={faBreadSlice}
                                 />
                             </div>
-                            <button type="submit" onClick={send}>
+                            <button
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    send();
+                                }}
+                            >
                                 Gửi
                             </button>
+                            {/* <button onClick={send}>Gửi</button> */}
                         </form>
                     </div>
                 </div>

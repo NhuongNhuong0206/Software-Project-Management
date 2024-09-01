@@ -15,23 +15,25 @@ const TienIch = () => {
     };
     return (
         <>
-            <Header />
-            <div className="home_utilities">
-                <div className="login-container-home">
-                    <h1 className="homeTitle">Tiện Ích</h1>
-                    <div className="utilities">
-                        <Button
-                            className="utility-item btnl"
-                            onClick={() => handleCar()}
-                        >
-                            Xem danh sách thẻ xe đã đăng kí
-                        </Button>
-                        <Button
-                            className="utility-item btnc"
-                            onClick={() => handleGood()}
-                        >
-                            Tủ đồ điện tử
-                        </Button>
+            <div className="home">
+                <Header />
+                <div className="home_utilities">
+                    <div className="login-container-home">
+                        <h1 className="homeTitle">Tiện Ích</h1>
+                        <div className="utilities">
+                            <Button
+                                className="utility-item btnl"
+                                onClick={() => handleCar()}
+                            >
+                                Xem danh sách thẻ xe đã đăng kí
+                            </Button>
+                            <Button
+                                className="utility-item btnc"
+                                onClick={() => handleGood()}
+                            >
+                                Tủ đồ điện tử
+                            </Button>
+                        </div>
                     </div>
                 </div>
             </div>
