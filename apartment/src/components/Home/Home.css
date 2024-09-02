@@ -26,7 +26,7 @@
 .homeTitle {
     margin-top: 40px;
     margin-bottom: 20px;
-    font-size: 4rem; /* Kích thước chữ tiêu đề */
+    font-size: 3.5rem; /* Kích thước chữ tiêu đề */
     color: #d64c16; /* Màu chữ tiêu đề */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Thêm hiệu ứng bóng cho chữ */
     text-align: center;

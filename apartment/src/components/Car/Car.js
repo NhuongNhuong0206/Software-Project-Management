@@ -60,20 +60,20 @@ function VehicleInfo() {
 
     return (
         <div className="home">
-            <div style={{ backgroundColor: "#f0f0f0", padding: "20px" }}>
-                <h1 style={{ textAlign: "center", color: "#555" }}>
+            <div style={{backgroundColor: "#f5f5f5"}}>
+                <h1 style={{ textAlign: "center", color: "#555", margin:5 }}>
                     DANH SÁCH THẺ XE ĐANG SỬ DỤNG
                 </h1>
                 <Button
-                    style={{ marginBottom: "10px" }}
+                    style={{ marginBottom: "5px" }}
                     onClick={() => handleRegister()}
                 >
                     Đăng Ký Thẻ Xe
                 </Button>
-                <div style={{ marginBottom: "20px" }}>
+                <div className="vehicle-list-container">
                     {orders.map((order, index) => (
                         <div key={index} style={cardStyle}>
-                            <div style={iconStyle}>icon</div>
+                            <div style={iconStyle}>🚗</div>
                             <div style={infoStyle}>
                                 <p>
                                     <strong>Cư dân:</strong>{" "}
@@ -113,8 +113,8 @@ const cardStyle = {
     display: "flex",
     backgroundColor: "#003366",
     color: "white",
-    padding: "20px",
-    marginBottom: "20px",
+    padding: "10px",
+    marginBottom: "10px",
     borderRadius: "8px",
 };
 
@@ -136,9 +136,8 @@ const infoStyle = {
 
 const infoSpanStyle = {
     display: "inline-block",
-    backgroundColor: "#555",
-    width: "150px",
-    height: "20px",
+    width: "100px",
+    height: "15px",
     marginLeft: "10px",
     borderRadius: "4px",
 };

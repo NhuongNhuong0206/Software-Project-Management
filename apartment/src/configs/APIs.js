@@ -10,7 +10,7 @@ export const endpoints = {
     changPass: "Info/reset_password/",
     carCard: "CarCard/update_card/",
     deleteCarCard: "CarCard/delete_card/",
-    ListCarCardOfUser: "CarCard/1/get_card/",
+    ListCarCardOfUser: "CarCard/get_card/",
     getPeople: "user_info_people/get_infopeople/",
     ListGoodssOfUser: "goods/get_goods/",
     createGoodss: "goods/create_goods/",
@@ -21,6 +21,8 @@ export const endpoints = {
     currentuser: "/User/current-user/",
     bill: "/Bill/get_bill/",
     updateImgBill: "/Bill/upload_imgbanking/",
+    feedback: "/letter/get_letters/",
+    createfeedback: "/letter/create_letters/"
     
 };
 

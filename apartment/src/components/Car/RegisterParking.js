@@ -36,7 +36,7 @@ const RegisterParking = ({ isAdmin }) => {
                     crossdomain: true,
                     data: payload,
                     headers: {
-                        Authorization: `Bearer ${user}`,
+                        Authorization: `Bearer ${user.token}`,
                     },
                 });
                 console.log("Tới đây");

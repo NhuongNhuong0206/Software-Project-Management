@@ -1,38 +1,39 @@
-import React, { useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import "./FeedbackList.css";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import Header from "../../layout/Header";
+import { MyDispatcherContext, MyUserContext } from "../../configs/Contexts";
+import APIs, { endpoints } from "../../configs/APIs";
 
 const FeedbackList = () => {
     const navigate = useNavigate();
-    const feedbacks = [
-        {
-            id: 1,
-            title: "Tình trạng đường sá",
-            content: "Đường xuống cấp trầm trọng",
-        },
-        {
-            id: 2,
-            title: "Vệ sinh môi trường",
-            content: "Rác thải không được thu gom",
-        },
-        {
-            id: 3,
-            title: "Điện nước không ổn định",
-            content: "Mất điện liên tục",
-        },
-        { id: 4, title: "Giao thông", content: "Kẹt xe giờ cao điểm" },
-        { id: 5, title: "An ninh khu vực", content: "Cần tăng cường an ninh" },
-        { id: 6, title: "Giá cả sinh hoạt", content: "Giá cả tăng cao" },
-        { id: 7, title: "Hệ thống thoát nước", content: "Ngập úng sau mưa" },
-        {
-            id: 8,
-            title: "Tiếng ồn",
-            content: "Ô nhiễm tiếng ồn từ công trường",
-        },
-        // Add more feedback items as needed
-    ];
+    const user = useContext(MyUserContext);
+    const [DataFeedback, setFeedback] = useState([]);
+    const dispatch = useContext(MyDispatcherContext)
+    const [reload, setReload] = useState(false);
+    
+
+    const fetchDataFeedback = useCallback(async () => {
+        try {
+            let res = await APIs({
+                method: "get",
+                url: endpoints.feedback,
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
+            });
+            setFeedback(res.data);
+        } catch (ex) {
+           navigate("/home");
+        }
+    }, [ user.token, setFeedback, navigate]);
+
+    useEffect(() => {
+        fetchDataFeedback();
+    }, [fetchDataFeedback]);
+
+    
 
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 6; // Số phản ánh hiển thị trên mỗi trang
@@ -40,10 +41,10 @@ const FeedbackList = () => {
     // Tính toán các phản ánh hiện tại
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = feedbacks.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = DataFeedback.slice(indexOfFirstItem, indexOfLastItem);
 
     // Tổng số trang
-    const totalPages = Math.ceil(feedbacks.length / itemsPerPage);
+    const totalPages = Math.ceil(DataFeedback.length / itemsPerPage);
 
     // Hàm chuyển trang
     const nextPage = () => {
@@ -79,16 +80,16 @@ const FeedbackList = () => {
                     </Button>
                 </div>
                 <div className="feedback-container">
-                    {currentItems.map((feedback) => (
+                    {DataFeedback.map((feedback) => (
                         <div className="feedback-item" key={feedback.id}>
                             <div>
                                 <img
                                     className="feedback-image"
-                                    src="https://res.cloudinary.com/dr9h3ttpy/image/upload/v1724670931/syxhtr1dbx0v6bdaanwb.jpg"
+                                    src={feedback.img_letter || "https://via.placeholder.com/40"}
                                 ></img>
                             </div>
                             <div className="feedback-content">
-                                <h3>{feedback.title}</h3>
+                                <h3>{feedback.title_letter}</h3>
                                 <p>{feedback.content}</p>
                             </div>
                         </div>
