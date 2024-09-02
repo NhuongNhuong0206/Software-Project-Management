@@ -81,7 +81,6 @@ const Goods = () => {
     return (
         <>
             <div className="home">
-                <Header />
                 <div className="form-container">
                     <h1 className="vy">Nhập thông tin hàng hóa</h1>
                     <div className="container">

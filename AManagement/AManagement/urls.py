@@ -15,24 +15,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-
-<<<<<<< HEAD
+from django.urls import path, include, re_path
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
 from Apartment.admin import admin_site
 
-schema_view = get_schema_view(
-    openapi.Info(
-        title="QlChungCu API",
-        default_version='v1',
-        description="Trang Web Quan Ly Chung Cu",
-        contact=openapi.Contact(email="yanghara2611@gmail.com"),
-        license=openapi.License(name="TNVV#2024"),
-    ),
-    public=True,
-    permission_classes=(permissions.AllowAny,),
-)
-
-import Apartment
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -45,12 +33,10 @@ schema_view = get_schema_view(
     public=True,
     permission_classes=(permissions.AllowAny,),
 )
-=======
->>>>>>> parent of 6edc1d39 (Lập trình API đăng ký tủ đồ điện tử, cấp tủ đồ điện tử)
-urlpatterns = [
-    path('admin/', admin.site.urls),
-<<<<<<< HEAD
 
+urlpatterns = [
+    path('', include('Apartment.urls')),
+    path('admin/', admin_site.urls),
     re_path(r'^ckeditor/', include('ckeditor_uploader.urls')),
     re_path(r'^swagger(?P<format>\.json|\.yaml)$',
             schema_view.without_ui(cache_timeout=0),
@@ -66,7 +52,4 @@ urlpatterns = [
 
     re_path(r'^ckeditor/',
             include('ckeditor_uploader.urls')),
-
-=======
->>>>>>> parent of 6edc1d39 (Lập trình API đăng ký tủ đồ điện tử, cấp tủ đồ điện tử)
 ]

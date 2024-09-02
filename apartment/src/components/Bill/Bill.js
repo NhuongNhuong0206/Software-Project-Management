@@ -1,53 +1,54 @@
-import React from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import "./Bill.css";
 import { useNavigate } from "react-router";
 import Header from "../../layout/Header";
+import { MyDispatcherContext, MyUserContext } from "../../configs/Contexts";
+import APIs, { endpoints } from "../../configs/APIs";
 
 const Bill = () => {
     const navigate = useNavigate();
-
+    const user = useContext(MyUserContext);
+    const [DataBill, setDataBill] = useState([]);
+    const dispatch = useContext(MyDispatcherContext)
+    const [reload, setReload] = useState(false);
+    
     const handlePayment = (bill) => {
         navigate("/invoice", { state: bill });
     };
 
-    const billData = [
-        {
-            id: 1,
-            title: "Hóa đơn Internet",
-            total: "500,000 VND",
-            created: "20/08/2024",
-            note: "Thanh toán trước 25/08/2024",
-        },
-        {
-            id: 2,
-            title: "Hóa đơn sửa chữa",
-            total: "1,200,000 VND",
-            created: "18/08/2024",
-            note: "Thanh toán trước 23/08/2024",
-        },
-        {
-            id: 3,
-            title: "Hóa đơn rác",
-            total: "150,000 VND",
-            created: "19/08/2024",
-            note: "Thanh toán trước 22/08/2024",
-        },
-    ];
+    const fetchDataBill = useCallback(async () => {
+        try {
+            let res = await APIs({
+                method: "get",
+                url: endpoints.bill,
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
+            });
+            setDataBill(res.data);
+        } catch (ex) {
+           navigate("/home");
+        }
+    }, [ user.token, setDataBill, navigate]);
+
+    useEffect(() => {
+        fetchDataBill();
+    }, [fetchDataBill]);
+
 
     return (
         <>
-            <Header />
             <div className="payment-container">
                 <h1>THANH TOÁN HÓA ĐƠN</h1>
                 <div className="bill-cards">
-                    {billData.map((bill) => (
+                    {DataBill.map((bill) => (
                         <div className="bill-card" key={bill.id}>
-                            <h2>{bill.title}</h2>
+                            <h2>{bill.name_bill}</h2>
                             <div className="bill-field">
                                 <label>Tổng phí:</label>
                                 <input
                                     type="text"
-                                    value={bill.total}
+                                    value={bill.money}
                                     readOnly
                                 />
                             </div>
@@ -55,13 +56,21 @@ const Bill = () => {
                                 <label>Ngày tạo:</label>
                                 <input
                                     type="text"
-                                    value={bill.created}
+                                    value={bill.created_date}
                                     readOnly
                                 />
                             </div>
                             <div className="bill-field">
-                                <label>Ghi chú:</label>
-                                <input type="text" value={bill.note} readOnly />
+                                <label>Loại hóa đơn:</label>
+                                <input
+                                    type="text"
+                                    value={bill.type_bill}
+                                    readOnly
+                                />
+                            </div>
+                            <div className="bill-field">
+                                <label>Mô tả:</label>
+                                <input type="text" value={bill.decription} readOnly />
                             </div>
                             <button
                                 className="pay-button"

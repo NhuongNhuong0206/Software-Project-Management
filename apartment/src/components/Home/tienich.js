@@ -15,7 +15,6 @@ const TienIch = () => {
     };
     return (
         <>
-            <Header />
             <div className="home_utilities">
                 <div className="login-container-home">
                     <h1 className="homeTitle">Tiện Ích</h1>

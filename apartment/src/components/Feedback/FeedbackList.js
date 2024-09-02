@@ -64,7 +64,6 @@ const FeedbackList = () => {
 
     return (
         <>
-            <Header />
             <div className="feedback-fullscreen">
                 <h1 className="feedback-title">PHẢN ÁNH ĐÃ GỬI</h1>
 

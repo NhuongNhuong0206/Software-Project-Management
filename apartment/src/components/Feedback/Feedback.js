@@ -18,7 +18,6 @@ function Feedback() {
 
   return (
     <>
-      <Header/>
           <div className="home">
               <div className="container_nhi">
                   <h1 className="h1_nhi">PHẢN ÁNH</h1>

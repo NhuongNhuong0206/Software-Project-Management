@@ -1,35 +1,95 @@
-import React, { useState } from 'react';
-import './RegisterParking.css';
-import Header from '../../layout/Header';
+import React, { useContext, useState } from "react";
+import "./RegisterParking.css";
+import Header from "../../layout/Header";
+import { MyUserContext } from "../../configs/Contexts";
+import APIs, { endpoints } from "../../configs/APIs";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 
 const RegisterParking = ({ isAdmin }) => {
-    const [area, setArea] = useState('');
-    const [vehicleType, setVehicleType] = useState('');
+    const [loading, setLoading] = React.useState(false);
+    const [area, setArea] = useState("");
+    const [vehicleType, setVehicleType] = useState("");
     const [requests, setRequests] = useState([]);
+    const nav = useNavigate();
+    const user = useContext(MyUserContext);
+    const send = async () => {
+        console.log("user: ", user);
+        if (area && vehicleType) {
+            setLoading(true);
+
+            const payload = {
+                area: area,
+                vehicleType: vehicleType,
+            };
+            let esc = encodeURIComponent;
+            let query = Object.keys(payload)
+                .map((k) => esc(k) + "=" + esc(payload[k]))
+                .join("&");
+
+            try {
+                console.log("Trước res", payload);
+                let res = await APIs({
+                    method: "post",
+                    url: endpoints.carCard,
+                    withCredentials: true,
+                    crossdomain: true,
+                    data: payload,
+                    headers: {
+                        Authorization: `Bearer ${user}`,
+                    },
+                });
+                console.log("Tới đây");
+
+                if (res.status === 201) {
+                    Swal.fire(
+                        "Đăng ký thành công",
+                        "Gửi xét duyệt thành công",
+                        "success"
+                    ).then(() => {
+                        nav("/home");
+                    });
+                }
+            } catch (ex) {
+                console.log("eeeee: ", ex.response.status);
+                if (ex.response.status === 403) {
+                    Swal.fire("Lỗi", "Quá số lượng", "error").then((result) => {
+                        if (result.isConfirmed) {
+                            nav("/home");
+                        }
+                    });
+                }
+            } finally {
+                setLoading(false);
+            }
+        } else {
+            Swal.fire("Thông báo", "Bạn chưa nhập đủ thông tin", "warning");
+            console.log("Lỗi");
+        }
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const newRequest = { area, vehicleType, status: 'Pending' };
+        const newRequest = { area, vehicleType, status: "Pending" };
         setRequests([...requests, newRequest]);
-        setArea('');
-        setVehicleType('');
+        setArea("");
+        setVehicleType("");
     };
 
     const handleApprove = (index) => {
         const updatedRequests = [...requests];
-        updatedRequests[index].status = 'Approved';
+        updatedRequests[index].status = "Approved";
         setRequests(updatedRequests);
     };
 
     const handleReject = (index) => {
         const updatedRequests = [...requests];
-        updatedRequests[index].status = 'Rejected';
+        updatedRequests[index].status = "Rejected";
         setRequests(updatedRequests);
     };
 
     return (
         <>
-        <Header/>
             <div className="home">
                 <div className="register-parking">
                     <h1 className="title">ĐĂNG KÝ THẺ GIỮ XE</h1>
@@ -50,7 +110,7 @@ const RegisterParking = ({ isAdmin }) => {
                             className="input-field"
                             required
                         />
-                        <button type="submit" className="submit-button">
+                        <button className="submit-button" onClick={send}>
                             <i className="check-icon">✔️</i> Gửi xét duyệt
                         </button>
                     </form>

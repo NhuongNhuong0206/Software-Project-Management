@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import random
 import string
 import cloudinary
@@ -125,7 +124,7 @@ class BillViewSet(viewsets.ViewSet, generics.ListAPIView):
         # Lấy người dùng đang đăng nhập từ request
         current_user = request.user
         # Lấy thông tin các Hóa đơn mà người dùng đang có
-        bill_user = Bill.objects.filter(user_resident=current_user.id)
+        bill_user = Bill.objects.filter(user_resident=current_user.id, status_bill='UNPAID')
         serialized_data = self.serializer_class(bill_user, many=True).data
         return Response(serialized_data, status=status.HTTP_200_OK)
 
@@ -166,6 +165,7 @@ class BillViewSet(viewsets.ViewSet, generics.ListAPIView):
                 imageCloud = cloudinary.uploader.upload(img_file)
                 bill.transaction_images = imageCloud['secure_url']
                 bill.payment_style = 'BANKING'
+                bill.status_bill = 'PAID'
                 bill.save()
 
                 return Response({'message': 'Image Bank uploaded successfully'}, status=status.HTTP_201_CREATED)
@@ -174,17 +174,6 @@ class BillViewSet(viewsets.ViewSet, generics.ListAPIView):
                                 status=status.HTTP_404_NOT_FOUND)
         except current_user.DoesNotExist:
             return Response({"message": "Account not found"}, status=status.HTTP_404_NOT_FOUND)
-
-
-class ResidentLoginViewset(viewsets.ViewSet, generics.ListAPIView, generics.CreateAPIView):  # API Người dùng đăng nhập
-    queryset = User.objects.filter(is_active=True)
-    serializer_class = UserSerializers
-    parser_classes = [parsers.MultiPartParser, JSONParser, FormParser]
-
-    @action(methods=['get'], url_path='current-user', detail=False)
-    def get_current_user(self, request):
-        user = request.user
-        return Response(UserSerializers(user).data)
 
 
 # API INFO NGUOI DUNG
@@ -327,13 +316,8 @@ class CarCardViewset(viewsets.ViewSet, generics.ListAPIView):
         carcard.delete()
         return Response({"message": "Thẻ xe đã được xóa thành công."}, status=status.HTTP_200_OK)
 
-<<<<<<< HEAD
-=======
-from django.shortcuts import render
 
-# Create your views here.
->>>>>>> parent of 6edc1d39 (Lập trình API đăng ký tủ đồ điện tử, cấp tủ đồ điện tử)
-=======
+from django.shortcuts import render
 
 
 # Api đơn hàng trong tủ đồ
@@ -347,7 +331,7 @@ class GoodsViewSet(viewsets.ViewSet, generics.ListAPIView):
             return [permissions.IsAuthenticated()]
 
         return [permissions.AllowAny()]
-     
+
     @action(methods=['get'], url_path='get_goods', detail=False)
     def get_goods(self, request):
         try:
@@ -402,7 +386,7 @@ class GoodsViewSet(viewsets.ViewSet, generics.ListAPIView):
             return Response({"message": "Không thể cập nhật trạng thái hàng hóa"},
                             status=status.HTTP_400_BAD_REQUEST)
 
-          
+
 class LettersViewSet(viewsets.ViewSet):
     queryset = Letters.objects.filter(is_active=True)
     serializer_class = LettersSerializers
@@ -411,7 +395,7 @@ class LettersViewSet(viewsets.ViewSet):
         if self.action in ['create_letters', ' get_letters']:
             return [permissions.IsAuthenticated()]
         return [permissions.AllowAny()]
-      
+
     @action(detail=False, methods=['get'], url_path='get_letters', url_name='get_letters')
     def get_letters(self, request):
         user = self.request.user
@@ -458,7 +442,7 @@ class LettersViewSet(viewsets.ViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-      
+
 class SurveyViewSet(viewsets.ViewSet):
     queryset = Survey.objects.all()
     serializer_class = SurveySerializer
@@ -535,6 +519,3 @@ class AnswerViewSet(viewsets.ViewSet):
             return Response({'error': 'Question does not exist'}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-    
->>>>>>> 9443e94aa396372f93cf2cabc830c1156509a3ca

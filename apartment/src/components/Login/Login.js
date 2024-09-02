@@ -29,8 +29,8 @@ const Login = () => {
         const payload = {
             username,
             password,
-            client_id: process.env.REACT_APP_CLIENT_ID,
-            client_secret: process.env.REACT_APP_CLIENT_SECRET,
+            client_id: '6fJmhSsHGNeTl8SuqORDr1L5xkPVALNB50vJSkkU',
+            client_secret: "VAt2PkQ3rxqvsJnO6zwVOlT5dodbe5Lnx6NgCaZlfKZLCnoboJHOb0DIYAJ0ig9DEQYq8k2UTuai08hBJQmXOv9ecVKKLn7urpeTBP84BvG806F4l0gpefajyP5LPWt7",
             grant_type: "password",
         };
 

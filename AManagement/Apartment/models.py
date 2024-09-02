@@ -27,12 +27,6 @@ class User(AbstractUser):
     avatar_acount = CloudinaryField(null=True)
     change_password_required = models.BooleanField(default=False)
 
-    def save(self, *args, **kwargs):
-        # Băm mật khẩu nếu mật khẩu đã được thiết lập
-        if self.password:
-            self.set_password(self.password)
-        super().save(*args, **kwargs)
-
     def __str__(self):
         return self.username
 
@@ -174,14 +168,4 @@ class Answer(models.Model):
     def __str__(self):
         return f"Answer to {self.question} in {self.response}" # Trả lời cho {câu hỏi} tại {Kết quả khảo sát}
 
-class CarCard(BaseModel):
-    class EnumStatusCard(models.TextChoices):
-        UN = 'Unconfimred'
-        WAIT = 'Wait_for_confirmation'
-        CONFIRMER = 'Confirmed'
 
-    area = models.CharField(max_length=255)
-    status_card = models.CharField(max_length=50, choices=EnumStatusCard.choices,
-                                   default=EnumStatusCard.WAIT)  # Trạng thái thẻ xe
-    vehicle_type = models.CharField(max_length=255, default='motorbike')
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)

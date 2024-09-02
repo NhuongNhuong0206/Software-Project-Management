@@ -1,19 +1,12 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> 9443e94aa396372f93cf2cabc830c1156509a3ca
 from django.utils.html import mark_safe
 from django.contrib import admin
 from .models import *
 from django.urls import reverse
 from django.utils.html import format_html
-from .form import *
 from django.urls import path
 from django.db.models import Count
 from django.template.response import TemplateResponse
 from django.forms import Textarea
-from django.shortcuts import get_object_or_404, redirect
 
 from oauth2_provider.models import Application, AccessToken, Grant, IDToken, RefreshToken
 
@@ -145,7 +138,6 @@ class BillSet(admin.ModelAdmin):
 class LettersSet(admin.ModelAdmin):
     list_display = ['id', 'title_letter', 'people', 'edit']
     search_fields = ['id', 'title_letter']
-    form = LettersForm
 
     def formfield_for_manytomany(self, db_field, request, **kwargs):
         if db_field.name == "user_admin":
@@ -205,41 +197,19 @@ class SurveyResponseAdmin(admin.ModelAdmin):
     inlines = [AnswerInline]
 
 
-class CarCardSet(admin.ModelAdmin):
-    list_display = ['id', 'area', 'status_card', 'vehicle_type', 'user', 'edit', ]
-    search_fields = ['id', 'area']
+admin_site.register(User, UserResidentSet)
+admin_site.register(People, PeopleSet)
+admin_site.register(CarCard, CarCardSet)
+admin_site.register(Box, BoxSet)
+admin_site.register(Goods, GoodSet)
+admin_site.register(Letters, LettersSet)
+admin_site.register(Bill, BillSet)
 
-    def edit(self, obj):
-        edit_url = reverse('admin:%s_%s_change' % (obj._meta.app_label, obj._meta.model_name), args=[obj.pk])
-        return format_html(
-            '<a href="{}" style="background-color: #4CAF50; border: none; color: white; padding: 8px 14px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; border-radius: 4px; cursor: pointer;">Edit</a>',
-            edit_url)
-
-
-admin.site.register(User, UserResidentSet)
-admin.site.register(People, PeopleSet)
-admin.site.register(CarCard, CarCardSet)
-admin.site.register(Box, BoxSet)
-admin.site.register(Goods, GoodSet)
-admin.site.register(Letters, LettersSet)
-admin.site.register(Bill, BillSet)
-
-admin.site.register(Survey, SurveyAdmin)
-admin.site.register(SurveyResponse, SurveyResponseAdmin)
+admin_site.register(Survey, SurveyAdmin)
+admin_site.register(SurveyResponse, SurveyResponseAdmin)
 
 admin_site.register(Application)
 admin_site.register(AccessToken)
 admin_site.register(Grant)
 admin_site.register(IDToken)
 admin_site.register(RefreshToken)
-
-# Register your models here
-<<<<<<< HEAD
-
-=======
-from django.contrib import admin
-
-# Register your models here.
->>>>>>> parent of 6edc1d39 (Lập trình API đăng ký tủ đồ điện tử, cấp tủ đồ điện tử)
-=======
->>>>>>> 9443e94aa396372f93cf2cabc830c1156509a3ca

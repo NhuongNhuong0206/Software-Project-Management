@@ -1,17 +1,23 @@
-import React, { useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Header.css";
 import Login from "../components/Login/Login";
+import { MyDispatcherContext, MyUserContext } from "../configs/Contexts";
+import APIs, { endpoints } from "../configs/APIs";
 
 const Header = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(true); // Mặc định là chưa đăng nhập
+    const user = useContext(MyUserContext);
+    const dispatch = useContext(MyDispatcherContext)
+    const [avatar, setAvatar] = useState({});
     const navigate = useNavigate(); // Khởi tạo useNavigate
 
-    // const handleAuthToggle = () => {
-    //     setIsLoggedIn(!isLoggedIn);
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        dispatch({type: "logout"})
+        navigate("/login");
+	}
 
-    //     navigate("/logout");
-    // };
+
 
     return (
         <header className="header">
@@ -31,9 +37,17 @@ const Header = () => {
                     <li>
                         <Link to="/profile">Hồ Sơ</Link>
                     </li>
-                    <li>
-                        <Link to="/login">Đăng xuất</Link>
-                    </li>
+                    {user ? (
+                        <li className="header__user-info">
+                            <button onClick={handleLogout} className="btn-link">
+                                Đăng xuất
+                            </button>
+                        </li>
+                    ) : (
+                        <li>
+                            <Link to="/login">Đăng nhập</Link>
+                        </li>
+                    )}
                 </ul>
             </nav>
         </header>

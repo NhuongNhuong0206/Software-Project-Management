@@ -14,13 +14,9 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-<<<<<<< HEAD
 MEDIA_ROOT = f"{BASE_DIR}/Apartment/static/"
 
 CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'https://4425-171-243-49-117.ngrok-free.app']
-=======
-
->>>>>>> parent of 6edc1d39 (Lập trình API đăng ký tủ đồ điện tử, cấp tủ đồ điện tử)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -33,7 +29,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -43,9 +38,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'Apartment.apps.ApartmentConfig',
+    'rest_framework',
+    'drf_yasg',
+    'oauth2_provider',
+    'ckeditor',
+    'ckeditor_uploader',
+    'corsheaders',
 ]
 
-<<<<<<< HEAD
+AUTH_USER_MODEL = 'Apartment.User'
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
@@ -53,13 +56,10 @@ REST_FRAMEWORK = {
 }
 CKEDITOR_UPLOAD_PATH = "ckeditors/images/"
 
-
 OAUTH2_PROVIDER = {
     # 'OAUTH2_BACKEND_CLASS': 'oauth2_provider.oauth2_backends.JSONOAuthLibCore'
 }
 
-=======
->>>>>>> parent of 6edc1d39 (Lập trình API đăng ký tủ đồ điện tử, cấp tủ đồ điện tử)
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -74,20 +74,16 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'AManagement.urls'
 
-<<<<<<< HEAD
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:8000',  # Địa chỉ IP hoặc tên miền của ứng dụng React Native
     'http://192.168.1.222:8081:delete',
-    'exp://192.168.1.222:8081:delete'# Ví dụ: địa chỉ IP của Metro bundler
+    'exp://192.168.1.222:8081:delete'  # Ví dụ: địa chỉ IP của Metro bundler
     # Thêm các địa chỉ IP hoặc tên miền khác nếu cần
 )
 
-
-=======
->>>>>>> parent of 6edc1d39 (Lập trình API đăng ký tủ đồ điện tử, cấp tủ đồ điện tử)
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -106,26 +102,18 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'AManagement.wsgi.application'
 
-
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
-<<<<<<< HEAD
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'apartment',
         'USER': 'root',
         'PASSWORD': 'Admin@123',
         'HOST': ''  # mặc định localhost
-=======
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
->>>>>>> parent of 6edc1d39 (Lập trình API đăng ký tủ đồ điện tử, cấp tủ đồ điện tử)
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -145,6 +133,18 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+import cloudinary
+
+cloudinary.config(
+    cloud_name="hiendai",
+    api_key="358894412554338",
+    api_secret="achoo--NvftyIBf-7AUzdDgLMZc",  # Click 'View Credentials' below to copy your API secret
+    # api_proxy = "http://proxy.server:3128"
+)
+import cloudinary.uploader
+import cloudinary.api
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
@@ -157,7 +157,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
@@ -167,10 +166,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-<<<<<<< HEAD
 
-CLIENT_ID = 'LWntCvujErO8Cx6SiDBZa9lED2QjSj0KRV7flBsv'
-CLIENT_SECRET = 'fv8ESpuMec5E4PXCWkXb18XQCUXP3a99C85v42KRXb0BS6jzB8VkuYFm8RrOw8geaxXXliQCG4tKEEPSzSESLAlyUntIgHxs8cD5aT86wfDrU3PokcmoSk6nEfh8NBLo'
-
-=======
->>>>>>> parent of 6edc1d39 (Lập trình API đăng ký tủ đồ điện tử, cấp tủ đồ điện tử)
+CLIENT_ID = '6fJmhSsHGNeTl8SuqORDr1L5xkPVALNB50vJSkkU'
+CLIENT_SECRET = 'VAt2PkQ3rxqvsJnO6zwVOlT5dodbe5Lnx6NgCaZlfKZLCnoboJHOb0DIYAJ0ig9DEQYq8k2UTuai08hBJQmXOv9ecVKKLn7urpeTBP84BvG806F4l0gpefajyP5LPWt7'

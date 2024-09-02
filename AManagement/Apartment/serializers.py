@@ -1,10 +1,5 @@
-from rest_framework import serializers
 from .models import *
 from rest_framework import serializers
-import random
-import string
-import smtplib
-from email.mime.text import MIMEText
 
 
 class CarCardSerializers(serializers.ModelSerializer):
@@ -39,25 +34,6 @@ class BillSerializers(serializers.ModelSerializer):
         # filter chỉ định các trường serialize ra pare thành json để gửi ra bên ngoài để client gọi API
         fields = ['id', 'name_bill', 'money', 'decription', 'type_bill', 'status_bill', 'user_resident', 'created_date',
                   'updated_date', ]
-
-
-    def to_representation(self, instance):
-        rep = super().to_representation(instance)
-        if instance.avatar_acount:
-            rep['avatar_acount'] = instance.avatar_acount.url
-
-        return rep
-
-    class Meta:
-        model = User
-        # filter chỉ định các trường serialize ra pare thành json để gửi ra bên ngoài để client gọi API
-        fields = ['id', 'username', 'password', 'avatar_acount', 'change_password_required', 'email']
-
-        extra_kwargs = {
-            "password": {
-                "write_only": True,
-            },
-        }
 
 
 class AdminSerializers(serializers.ModelSerializer):
@@ -115,14 +91,6 @@ class LettersSerializers(serializers.ModelSerializer):
         fields = ['title_letter', 'content', 'img_letter', 'user_admin', 'people', 'created_date']
 
 
-class BillSerializers(serializers.ModelSerializer):
-    class Meta:
-        model = Bill
-        # filter chỉ định các trường serialize ra pare thành json để gửi ra bên ngoài để client gọi API
-        fields = ['id', 'name_bill', 'money', 'decription', 'type_bill', 'status_bill', 'user_resident', 'created_date',
-                  'updated_date', ]
-
-
 class ForgotPasswordSerializers(serializers.ModelSerializer):
     email = serializers.EmailField(source='user.email', read_only=True)
 
@@ -159,42 +127,3 @@ class SurveyResponseSerializer(serializers.ModelSerializer):
 class AnswerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Answer
-
-
-class CarCardSerializers(serializers.ModelSerializer):
-    class Meta:
-        model = CarCard
-        # filter chỉ định các trường serialize ra pare thành json để gửi ra bên ngoài để client gọi API
-        fields = '__all__'
-
-
-class LettersSerializers(serializers.ModelSerializer):
-    user_admin = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=False, many=True)
-
-    class Meta:
-        model = Letters
-        fields = ['title_letter', 'content', 'img_letter', 'user_admin', 'people', 'created_date']
-
-
-class SurveySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Survey
-        fields = '__all__'
-
-
-class QuestionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Question
-        fields = '__all__'
-
-
-class SurveyResponseSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = SurveyResponse
-        fields = '__all__'
-
-
-class AnswerSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Answer
-        fields = '__all__'
