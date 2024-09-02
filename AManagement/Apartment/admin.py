@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+=======
+>>>>>>> 9443e94aa396372f93cf2cabc830c1156509a3ca
 from django.utils.html import mark_safe
 from django.contrib import admin
 from .models import *
@@ -48,6 +53,9 @@ class UserResidentSet(admin.ModelAdmin):
             # Nếu là tạo mới, đặt is_staff và is_superuser thành False
             obj.is_staff = False
             obj.is_superuser = False
+        # Kiểm tra nếu mật khẩu đã thay đổi, thì thực hiện băm mật khẩu
+        if 'password' in form.changed_data:
+            obj.set_password(obj.password)
         # Lưu đối tượng
         obj.save()
 
@@ -226,3 +234,12 @@ admin_site.register(IDToken)
 admin_site.register(RefreshToken)
 
 # Register your models here
+<<<<<<< HEAD
+
+=======
+from django.contrib import admin
+
+# Register your models here.
+>>>>>>> parent of 6edc1d39 (Lập trình API đăng ký tủ đồ điện tử, cấp tủ đồ điện tử)
+=======
+>>>>>>> 9443e94aa396372f93cf2cabc830c1156509a3ca

@@ -4,6 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="f7c8371a-c991-4e11-ae27-cdb750959e57" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/AManagement.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/AManagement.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
@@ -12,22 +13,19 @@
       <change beforePath="$PROJECT_DIR$/Apartment/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/Apartment/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Apartment/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/Apartment/serializers.py" afterDir="false" />
     </list>
+=======
+    <list default="true" id="f7c8371a-c991-4e11-ae27-cdb750959e57" name="Changes" comment="" />
+>>>>>>> parent of 6edc1d39 (Lập trình API đăng ký tủ đồ điện tử, cấp tủ đồ điện tử)
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="HTML File" />
-        <option value="Python Script" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+<<<<<<< HEAD
+=======
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
     &quot;state&quot;: &quot;OPEN&quot;,
@@ -43,6 +41,7 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+>>>>>>> 9443e94aa396372f93cf2cabc830c1156509a3ca
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -53,12 +52,27 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+<<<<<<< HEAD
     "DefaultHtmlFileTemplate": "HTML File",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
+<<<<<<< Updated upstream
+<<<<<<< HEAD
+    "last_opened_file_path": "D:/Myseft/HK_3_Nam3/QLDANPM/Software-Project-Management/AManagement",
+=======
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "TranDangMyTien",
+    "last_opened_file_path": "D:/CCNLTHD/JobPortalApp/jobPortal",
+>>>>>>> parent of 6edc1d39 (Lập trình API đăng ký tủ đồ điện tử, cấp tủ đồ điện tử)
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+=======
     "last_opened_file_path": "D:/MajorProject/ClinicManagement/clinicmanagement",
+=======
+    "last_opened_file_path": "D:/Myseft/HK_3_Nam3/QLDANPM/Software-Project-Management/AManagement",
+>>>>>>> Stashed changes
     "settings.editor.selected.configurable": "configurable.group.appearance"
+>>>>>>> 9443e94aa396372f93cf2cabc830c1156509a3ca
   }
 }]]></component>
   <component name="SharedIndexes">

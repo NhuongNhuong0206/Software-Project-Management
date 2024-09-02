@@ -14,9 +14,13 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+<<<<<<< HEAD
 MEDIA_ROOT = f"{BASE_DIR}/Apartment/static/"
 
 CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'https://4425-171-243-49-117.ngrok-free.app']
+=======
+
+>>>>>>> parent of 6edc1d39 (Lập trình API đăng ký tủ đồ điện tử, cấp tủ đồ điện tử)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -29,15 +33,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-AUTH_USER_MODEL = 'Apartment.User'
-
-import cloudinary
-
-cloudinary.config(
-    cloud_name="dr9h3ttpy",
-    api_key="938152162715573",
-    api_secret="IIJZy3CtSGsMGw1JVyBHSftoCBU"
-)
 
 # Application definition
 
@@ -48,15 +43,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Apartment.apps.ApartmentConfig',
-    'rest_framework',
-    'drf_yasg',
-    'oauth2_provider',
-    'ckeditor',
-    'ckeditor_uploader',
-    'corsheaders',
 ]
 
+<<<<<<< HEAD
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
@@ -66,9 +55,11 @@ CKEDITOR_UPLOAD_PATH = "ckeditors/images/"
 
 
 OAUTH2_PROVIDER = {
-    'OAUTH2_BACKEND_CLASS': 'oauth2_provider.oauth2_backends.JSONOAuthLibCore'
+    # 'OAUTH2_BACKEND_CLASS': 'oauth2_provider.oauth2_backends.JSONOAuthLibCore'
 }
 
+=======
+>>>>>>> parent of 6edc1d39 (Lập trình API đăng ký tủ đồ điện tử, cấp tủ đồ điện tử)
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -77,21 +68,26 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'AManagement.urls'
 
+<<<<<<< HEAD
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = (
-    'http://localhost:3000',  # Địa chỉ IP hoặc tên miền của ứng dụng React Native
+    'http://localhost:8000',  # Địa chỉ IP hoặc tên miền của ứng dụng React Native
     'http://192.168.1.222:8081:delete',
     'exp://192.168.1.222:8081:delete'# Ví dụ: địa chỉ IP của Metro bundler
     # Thêm các địa chỉ IP hoặc tên miền khác nếu cần
 )
 
 
+=======
+>>>>>>> parent of 6edc1d39 (Lập trình API đăng ký tủ đồ điện tử, cấp tủ đồ điện tử)
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -117,11 +113,16 @@ WSGI_APPLICATION = 'AManagement.wsgi.application'
 
 DATABASES = {
     'default': {
+<<<<<<< HEAD
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'apartment',
         'USER': 'root',
         'PASSWORD': 'Admin@123',
         'HOST': ''  # mặc định localhost
+=======
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+>>>>>>> parent of 6edc1d39 (Lập trình API đăng ký tủ đồ điện tử, cấp tủ đồ điện tử)
     }
 }
 
@@ -166,7 +167,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+<<<<<<< HEAD
 
 CLIENT_ID = 'LWntCvujErO8Cx6SiDBZa9lED2QjSj0KRV7flBsv'
 CLIENT_SECRET = 'fv8ESpuMec5E4PXCWkXb18XQCUXP3a99C85v42KRXb0BS6jzB8VkuYFm8RrOw8geaxXXliQCG4tKEEPSzSESLAlyUntIgHxs8cD5aT86wfDrU3PokcmoSk6nEfh8NBLo'
 
+=======
+>>>>>>> parent of 6edc1d39 (Lập trình API đăng ký tủ đồ điện tử, cấp tủ đồ điện tử)

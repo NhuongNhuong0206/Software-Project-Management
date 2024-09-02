@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import random
 import string
 import cloudinary
@@ -326,6 +327,13 @@ class CarCardViewset(viewsets.ViewSet, generics.ListAPIView):
         carcard.delete()
         return Response({"message": "Thẻ xe đã được xóa thành công."}, status=status.HTTP_200_OK)
 
+<<<<<<< HEAD
+=======
+from django.shortcuts import render
+
+# Create your views here.
+>>>>>>> parent of 6edc1d39 (Lập trình API đăng ký tủ đồ điện tử, cấp tủ đồ điện tử)
+=======
 
 
 # Api đơn hàng trong tủ đồ
@@ -529,3 +537,4 @@ class AnswerViewSet(viewsets.ViewSet):
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     
+>>>>>>> 9443e94aa396372f93cf2cabc830c1156509a3ca

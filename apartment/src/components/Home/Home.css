@@ -8,7 +8,7 @@
     background-size: cover; /* Kích thước hình nền để bao phủ toàn bộ phần tử */
     background-position: center; /* Căn giữa hình nền */
     background-repeat: no-repeat; /* Không lặp lại hình nền */
-    padding: 20px;
+    padding: 0px 20px;
     color: white;
     /* margin: 2px; */
     width: 100%;
