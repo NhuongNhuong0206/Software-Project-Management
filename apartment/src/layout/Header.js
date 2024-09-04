@@ -31,18 +31,16 @@ const Header = () => {
             </div>
             <nav className="header__nav">
                 <ul>
-                    <li>
-                        <Link to="/home">Trang Chủ</Link>
-                    </li>
-                    <li>
-                        <Link to="/profile">Hồ Sơ</Link>
-                    </li>
-                    {user ? (
-                        <li className="header__user-info">
-                            <button onClick={handleLogout} className="btn-link">
-                                Đăng xuất
-                            </button>
-                        </li>
+                {user ? (
+                    <><li>
+                            <Link to="/home">Trang Chủ</Link>
+                        </li><li>
+                                <Link to="/profile">Hồ Sơ</Link>
+                            </li><li className="header__user-info">
+                                <button onClick={handleLogout} className="btn-link">
+                                    Đăng xuất
+                                </button>
+                            </li></>
                     ) : (
                         <li>
                             <Link to="/login">Đăng nhập</Link>
